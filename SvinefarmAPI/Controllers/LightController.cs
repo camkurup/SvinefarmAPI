@@ -6,14 +6,14 @@ namespace SvinefarmAPI.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class LightLogController : Controller
+    public class LightController : Controller
     {
-        DataAccess databaseAccess = new DataAccess();
+        LightRepository lightRepository = new LightRepository();
 
         [HttpGet("GetLevelOfLight")]
         public IActionResult GetCurrentTemperature()
         {
-            return Ok(databaseAccess.GetLevelOfLight());
+            return Ok(lightRepository.GetLevelOfLight());
         }
     }
 }

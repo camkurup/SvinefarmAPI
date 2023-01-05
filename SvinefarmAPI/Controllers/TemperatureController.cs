@@ -5,14 +5,14 @@ namespace SvinefarmAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TemperatureLogController : Controller
+    public class TemperatureController : Controller
     {
-        DataAccess databaseAccess = new DataAccess();
+        TemperatureRepository temperatureRepository = new TemperatureRepository();
 
         [HttpGet("GetCurrentTemperature")]
         public IActionResult GetCurrentTemperature() 
         {
-            return Ok(databaseAccess.GetCurrentTemperature());
+            return Ok(temperatureRepository.GetCurrentTemperature());
         }
     }
 }

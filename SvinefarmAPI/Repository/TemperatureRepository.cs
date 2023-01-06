@@ -1,19 +1,14 @@
 ﻿using Npgsql;
 using SvinefarmAPI.Model;
 
-namespace SvinefarmAPI.Data
+namespace SvinefarmAPI.Repository
 {
     public class TemperatureRepository
     {
         //this is my connection string
         string conectionString = "Host=localhost;Username=postgres;Password=1505;Database=ThePigFarm";
 
-        /// <summary>
-        /// This Methode is not satisfying. But works allright as a placeholder
-        /// Makesure to come back an correct this
-        /// </summary>
-        /// <returns></returns>
-        public TemperatureLogModel GetCurrentTemperature()
+        public TemperatureModel GetCurrentTemperature()
         {
 
             //This opens for the connection to my DB
@@ -31,7 +26,7 @@ namespace SvinefarmAPI.Data
 
             NpgsqlDataReader reader = cmd.ExecuteReader();
 
-            TemperatureLogModel temperature = new TemperatureLogModel();
+            TemperatureModel temperature = new TemperatureModel();
             while (reader.Read())
             {
                 temperature.Id = Convert.ToInt32(reader[("Id")]);

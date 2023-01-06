@@ -1,20 +1,13 @@
 ﻿using Npgsql;
 using SvinefarmAPI.Model;
 
-namespace SvinefarmAPI.Data
+namespace SvinefarmAPI.Repository
 {
     public class LightRepository
     {
-        //DataAccess dataAccess = new DataAccess("");
-
         //this is my connection string
         string conectionString = "Host=localhost;Username=postgres;Password=1505;Database=ThePigFarm";
 
-        /// <summary>
-        /// This Methode is not satisfying. But works allright as a placeholder
-        /// Makesure to come back an correct this
-        /// </summary>
-        /// <returns></returns>
         public LightModel GetLevelOfLight()
         {
             NpgsqlConnection con = new NpgsqlConnection(conectionString);

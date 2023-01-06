@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SvinefarmAPI.Data;
+using SvinefarmAPI.Repository;
 
 namespace SvinefarmAPI.Controllers
 {

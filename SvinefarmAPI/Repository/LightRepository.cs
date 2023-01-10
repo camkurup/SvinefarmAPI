@@ -1,55 +1,87 @@
-﻿using Npgsql;
+﻿using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using SvinefarmAPI.Helpers;
 using SvinefarmAPI.Interfaces;
 using SvinefarmAPI.Model;
 
 namespace SvinefarmAPI.Repository
 {
-    public class LightRepository
-    {
-        ILight _light;
+    public class LightRepository : ILightRepository
+	{
         DataContext _dataContext;
 
-        public LightRepository(ILight light, DataContext dataContext)
+        public LightRepository(DataContext dataContext)
         {
-            _light = light;
             _dataContext = dataContext;
         }
 
-        //this is my connection string
-        //string conectionString = _dataContex.OnConfiguration;
-            //"Host=localhost;Username=postgres;Password=1505;Database=ThePigFarm";
+		public async Task<LightModel> CreateLightLog(LightModel light)
+		{
+			_dataContext.LightLog.Add(light);
+			await _dataContext.SaveChangesAsync();
+			return light;
+		}
 
-        public LightModel GetLevelOfLight()
-        {
+		public async Task<LightModel> DeleteLightLog(int logId)
+		{
+			LightModel foundLightModel = await _dataContext.LightLog.FirstOrDefaultAsync(x => x.Id == logId);
+			if (foundLightModel != null)
+			{
+				_dataContext.LightLog.Remove(foundLightModel);
+				await _dataContext.SaveChangesAsync();
+			}
+			return foundLightModel;
+		}
 
-            NpgsqlConnection con = new NpgsqlConnection(conectionString);
-            con.Open();
+		public async Task<List<LightModel>> GetAllLightLogs()
+		{
+			return await _dataContext.LightLog.ToListAsync();
+		}
 
-            DateTime currentTime = DateTime.Now;
+		public async Task<LightModel> GetLevelOfLight()
+		{
+			return await _dataContext.LightLog.OrderByDescending(x => x.TimeOfLog).FirstAsync();
+			
+		}
 
-            string query = "SELECT * FROM LIGHTLOG WHERE TimeOfLog = @currentTime";
+		public async Task<List<LightModel>> GetLightLogByTime(DateTime startTime, DateTime endTime)
+		{
+			return await _dataContext.LightLog.Where(x => x.TimeOfLog > startTime && x.TimeOfLog < endTime).ToListAsync();
+		}
 
-            NpgsqlCommand cmd = new NpgsqlCommand(query, con);
+		public Task<LightModel> SetLevelOfLight(LightModel light)
+		{
+			throw new NotImplementedException();
+		}
 
-            cmd.Parameters.AddWithValue("@currentTime", currentTime);
+		public async Task<LightModel> UpdateLightLog(LightModel logEntry, int logId)
+		{
+			LightModel updateLog = await _dataContext.LightLog.FirstOrDefaultAsync(x => x.Id == logId);
+			if (updateLog is not null) {
+				updateLog.LevelOfLight = logEntry.LevelOfLight;
+				updateLog.TimeOfLog= logEntry.TimeOfLog;
+				updateLog.LightLevelInStable = logEntry.LightLevelInStable;
+				await _dataContext.SaveChangesAsync();
+			}
+			return updateLog;
+		}
 
-            NpgsqlDataReader reader = cmd.ExecuteReader();
+		public async Task<LightModel> UpdateLightStatus(LightModel light)
+		{
+			LightModel newestLog = await _dataContext.LightLog.OrderByDescending(x => x.TimeOfLog).FirstAsync();
+			if (newestLog is not null) {
+				newestLog.LevelOfLight = light.LevelOfLight;
+				newestLog.TimeOfLog= light.TimeOfLog;
+				newestLog.LightLevelInStable = light.LightLevelInStable;
+				await _dataContext.SaveChangesAsync();
+			}
+			return newestLog;
+		}
 
-            LightModel lightLevel = new LightModel();
+		//this is my connection string
+		//string conectionString = _dataContex.OnConfiguration;
+		//"Host=localhost;Username=postgres;Password=1505;Database=ThePigFarm";
 
 
-            while (reader.Read())
-            {
-                lightLevel.Id = Convert.ToInt32(reader[("Id")]);
-                lightLevel.LevelOfLight = Convert.ToInt32(reader[("LevelOfLight")]);
-                lightLevel.TimeOfLog = Convert.ToDateTime(reader[("TimeOfLog")]);
-                lightLevel.LightLevelInStable = Convert.ToInt32(reader[("LightLevelInStable")]);
-            }
-
-            con.Close();
-
-            return lightLevel;
-        }
-    }
+	}
 }

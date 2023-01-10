@@ -18,7 +18,7 @@ namespace SvinefarmAPI.Helpers
             options.UseNpgsql(Configuration.GetConnectionString("ThePigFarm"));
         }
 
-        public DbSet<LightModel> Blogs { get; set; }
-        public DbSet<TemperatureModel> Posts { get; set; }
+        public DbSet<LightModel> LightLog { get; set; }
+        public DbSet<TemperatureModel> TemperatureLog { get; set; }
     }
 }

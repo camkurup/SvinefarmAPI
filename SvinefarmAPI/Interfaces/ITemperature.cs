@@ -1,6 +1,6 @@
 ﻿namespace SvinefarmAPI.Interfaces
 {
-    public interface ITemperature
+    public interface ITemperatureRepository
     {
         int GetCurrentTemperature(DateTime dateTime);
 

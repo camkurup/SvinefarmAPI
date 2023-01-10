@@ -1,15 +1,28 @@
 ﻿using Npgsql;
+using SvinefarmAPI.Helpers;
+using SvinefarmAPI.Interfaces;
 using SvinefarmAPI.Model;
 
 namespace SvinefarmAPI.Repository
 {
     public class LightRepository
     {
+        ILight _light;
+        DataContext _dataContext;
+
+        public LightRepository(ILight light, DataContext dataContext)
+        {
+            _light = light;
+            _dataContext = dataContext;
+        }
+
         //this is my connection string
-        string conectionString = "Host=localhost;Username=postgres;Password=1505;Database=ThePigFarm";
+        //string conectionString = _dataContex.OnConfiguration;
+            //"Host=localhost;Username=postgres;Password=1505;Database=ThePigFarm";
 
         public LightModel GetLevelOfLight()
         {
+
             NpgsqlConnection con = new NpgsqlConnection(conectionString);
             con.Open();
 

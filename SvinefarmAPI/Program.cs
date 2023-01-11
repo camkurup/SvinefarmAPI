@@ -1,8 +1,10 @@
-using FluentAssertions.Common;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using SvinefarmAPI.Helpers;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.DependencyModel;
+using SvinefarmAPI;
+using SvinefarmAPI.Controllers;
 using SvinefarmAPI.Interfaces;
-using SvinefarmAPI.Model;
 using SvinefarmAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,10 +17,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(
-    x => x.UseNpgsql("name=ConnectionStrings:ThePigFarm"));
+//builder.Services.AddDbContext<ThePigFarmContext>(
+//    options => options.UseNpgsql(builder.Configuration.GetConnectionString("ThePigFarm")));
 
-builder.Services.AddScoped<ILightRepository, LightRepository>();
+//builder.Services.AddSingleton<ILight, LightRepository>();
+//builder.Services.AddSingleton<ITemperature, TemperatureRepository>();
+
 
 var app = builder.Build();
 
@@ -29,6 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -36,3 +41,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+

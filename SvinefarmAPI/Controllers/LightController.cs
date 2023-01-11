@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SvinefarmAPI.Interfaces;
 using SvinefarmAPI.Model;
-using SvinefarmAPI.Repository;
 
 namespace SvinefarmAPI.Controllers
 {
@@ -10,18 +9,19 @@ namespace SvinefarmAPI.Controllers
     [Route("[controller]")]
     public class LightController : Controller
     {
-        private readonly ILightRepository _lightRepository;
+        private readonly ILight _lightRepository;
 
-        public LightController(ILightRepository lightRepository)
+        public LightController(ILight lightRepository)
         {
             _lightRepository= lightRepository;
         }
 		[HttpPost]
-		public async Task<IActionResult> CreateLightLog([FromBody] LightModel logEntry)
+		public async Task<IActionResult> CreateLightLog([FromBody] Lightlog logEntry)
 		{
 			try
 			{
-				LightModel createdAuthor = await _lightRepository.CreateLightLog(logEntry);
+                //Change variable name
+				Lightlog createdAuthor = await _lightRepository.CreateLightLog(logEntry);
 				if (createdAuthor is not null)
 				{
 					return Ok(createdAuthor);
@@ -42,7 +42,7 @@ namespace SvinefarmAPI.Controllers
         {
             try
             {
-                LightModel deletedLightLog = await _lightRepository.DeleteLightLog(logId);
+                Lightlog deletedLightLog = await _lightRepository.DeleteLightLog(logId);
                 if (deletedLightLog is not null)
                 {
                     return Ok(deletedLightLog);
@@ -63,7 +63,7 @@ namespace SvinefarmAPI.Controllers
         {
             try
             {
-                List<LightModel> lightLogList = await _lightRepository.GetAllLightLogs();
+                List<Lightlog> lightLogList = await _lightRepository.GetAllLightLogs();
                 if (lightLogList.Count > 0)
                 {
                     return Ok(lightLogList);
@@ -83,7 +83,7 @@ namespace SvinefarmAPI.Controllers
 		{
 			try
 			{
-				LightModel levelOfLight = await _lightRepository.GetLevelOfLight();
+				Lightlog levelOfLight = await _lightRepository.GetLevelOfLight();
 				if (levelOfLight is not null)
 				{
 					return Ok(levelOfLight);
@@ -123,7 +123,7 @@ namespace SvinefarmAPI.Controllers
   //      }
 
         [HttpPut("logId")]
-        public async Task<IActionResult> UpdateLightLog([FromBody] LightModel lightLog, [FromRoute] int logId)
+        public async Task<IActionResult> UpdateLightLog([FromBody] Lightlog lightLog, [FromRoute] int logId)
         {
             if (logId <= 0 || lightLog is null)
             {
@@ -131,7 +131,7 @@ namespace SvinefarmAPI.Controllers
             }
             try
             {
-                LightModel updatedLightLog = await _lightRepository.UpdateLightLog(lightLog, logId);
+                Lightlog updatedLightLog = await _lightRepository.UpdateLightLog(lightLog, logId);
                 if (updatedLightLog is not null)
                 {
                     return Ok(updatedLightLog);
@@ -147,7 +147,7 @@ namespace SvinefarmAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateLightStatus([FromBody] LightModel logEntry)
+        public async Task<IActionResult> UpdateLightStatus([FromBody] Lightlog logEntry)
         {
             if (logEntry is null)
             {
@@ -155,7 +155,7 @@ namespace SvinefarmAPI.Controllers
             }
             try
             {
-                LightModel updatedLightLog = await _lightRepository.UpdateLightStatus(logEntry);
+                Lightlog updatedLightLog = await _lightRepository.UpdateLightStatus(logEntry);
                 if (updatedLightLog is not null)
                 {
                     return Ok(updatedLightLog);

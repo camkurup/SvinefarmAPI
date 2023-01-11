@@ -1,87 +1,80 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using SvinefarmAPI.Helpers;
 using SvinefarmAPI.Interfaces;
 using SvinefarmAPI.Model;
 
 namespace SvinefarmAPI.Repository
 {
-    public class LightRepository : ILightRepository
+    public class LightRepository : ILight
 	{
-        DataContext _dataContext;
+		ThePigFarmContext _thePigFarmContext;
 
-        public LightRepository(DataContext dataContext)
+        public LightRepository(ThePigFarmContext thePigFarmContext)
         {
-            _dataContext = dataContext;
+			_thePigFarmContext= thePigFarmContext;
         }
 
-		public async Task<LightModel> CreateLightLog(LightModel light)
+		public async Task<Lightlog> CreateLightLog(Lightlog light)
 		{
-			_dataContext.LightLog.Add(light);
-			await _dataContext.SaveChangesAsync();
+            _thePigFarmContext.Lightlogs.Add(light);
+			await _thePigFarmContext.SaveChangesAsync();
 			return light;
 		}
 
-		public async Task<LightModel> DeleteLightLog(int logId)
+		public async Task<Lightlog> DeleteLightLog(int logId)
 		{
-			LightModel foundLightModel = await _dataContext.LightLog.FirstOrDefaultAsync(x => x.Id == logId);
+            Lightlog foundLightModel = await _thePigFarmContext.Lightlogs.FirstOrDefaultAsync(x => x.Id == logId);
 			if (foundLightModel != null)
 			{
-				_dataContext.LightLog.Remove(foundLightModel);
-				await _dataContext.SaveChangesAsync();
+                _thePigFarmContext.Lightlogs.Remove(foundLightModel);
+				await _thePigFarmContext.SaveChangesAsync();
 			}
 			return foundLightModel;
 		}
 
-		public async Task<List<LightModel>> GetAllLightLogs()
+		public async Task<List<Lightlog>> GetAllLightLogs()
 		{
-			return await _dataContext.LightLog.ToListAsync();
+			return await _thePigFarmContext.Lightlogs.ToListAsync();
 		}
 
-		public async Task<LightModel> GetLevelOfLight()
+		public async Task<Lightlog> GetLevelOfLight()
 		{
-			return await _dataContext.LightLog.OrderByDescending(x => x.TimeOfLog).FirstAsync();
+			return await _thePigFarmContext.Lightlogs.OrderByDescending(x => x.Timeoflog).FirstAsync();
 			
 		}
 
-		public async Task<List<LightModel>> GetLightLogByTime(DateTime startTime, DateTime endTime)
+		public async Task<List<Lightlog>> GetLightLogByTime(DateTime startTime, DateTime endTime)
 		{
-			return await _dataContext.LightLog.Where(x => x.TimeOfLog > startTime && x.TimeOfLog < endTime).ToListAsync();
+			return await _thePigFarmContext.Lightlogs.Where(x => x.Timeoflog > startTime && x.Timeoflog < endTime).ToListAsync();
 		}
 
-		public Task<LightModel> SetLevelOfLight(LightModel light)
+		public Task<Lightlog> SetLevelOfLight(Lightlog light)
 		{
 			throw new NotImplementedException();
 		}
 
-		public async Task<LightModel> UpdateLightLog(LightModel logEntry, int logId)
+		public async Task<Lightlog> UpdateLightLog(Lightlog logEntry, int logId)
 		{
-			LightModel updateLog = await _dataContext.LightLog.FirstOrDefaultAsync(x => x.Id == logId);
+            Lightlog updateLog = await _thePigFarmContext.Lightlogs.FirstOrDefaultAsync(x => x.Id == logId);
 			if (updateLog is not null) {
-				updateLog.LevelOfLight = logEntry.LevelOfLight;
-				updateLog.TimeOfLog= logEntry.TimeOfLog;
-				updateLog.LightLevelInStable = logEntry.LightLevelInStable;
-				await _dataContext.SaveChangesAsync();
+				updateLog.Leveloflight = logEntry.Leveloflight;
+				updateLog.Timeoflog= logEntry.Timeoflog;
+				updateLog.Lightlevelinstable = logEntry.Lightlevelinstable;
+				await _thePigFarmContext.SaveChangesAsync();
 			}
 			return updateLog;
 		}
 
-		public async Task<LightModel> UpdateLightStatus(LightModel light)
+		public async Task<Lightlog> UpdateLightStatus(Lightlog light)
 		{
-			LightModel newestLog = await _dataContext.LightLog.OrderByDescending(x => x.TimeOfLog).FirstAsync();
+            Lightlog newestLog = await _thePigFarmContext.Lightlogs.OrderByDescending(x => x.Timeoflog).FirstAsync();
 			if (newestLog is not null) {
-				newestLog.LevelOfLight = light.LevelOfLight;
-				newestLog.TimeOfLog= light.TimeOfLog;
-				newestLog.LightLevelInStable = light.LightLevelInStable;
-				await _dataContext.SaveChangesAsync();
+				newestLog.Leveloflight = light.Leveloflight;
+				newestLog.Timeoflog = light.Timeoflog;
+				newestLog.Lightlevelinstable = light.Lightlevelinstable;
+				await _thePigFarmContext.SaveChangesAsync();
 			}
 			return newestLog;
 		}
-
-		//this is my connection string
-		//string conectionString = _dataContex.OnConfiguration;
-		//"Host=localhost;Username=postgres;Password=1505;Database=ThePigFarm";
-
-
 	}
 }

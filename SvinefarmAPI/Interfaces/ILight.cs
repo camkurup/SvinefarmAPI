@@ -2,16 +2,16 @@
 
 namespace SvinefarmAPI.Interfaces
 {
-    public interface ILightRepository
+    public interface ILight
 	{
-		Task<LightModel> CreateLightLog(LightModel light);
-		Task<LightModel> GetLevelOfLight();
-		Task<List<LightModel>> GetAllLightLogs();
-		Task<List<LightModel>> GetLightLogByTime(DateTime startTime, DateTime endTime);
-		Task<LightModel> SetLevelOfLight(LightModel light);
-		Task<LightModel> UpdateLightLog(LightModel logEntry, int logId);
-		Task<LightModel> UpdateLightStatus(LightModel light);
-		Task<LightModel> DeleteLightLog(int logId);
+		Task<Lightlog> CreateLightLog(Lightlog light);
+		Task<Lightlog> GetLevelOfLight();
+		Task<List<Lightlog>> GetAllLightLogs();
+		Task<List<Lightlog>> GetLightLogByTime(DateTime startTime, DateTime endTime);
+		Task<Lightlog> SetLevelOfLight(Lightlog light);
+		Task<Lightlog> UpdateLightLog(Lightlog logEntry, int logId);
+		Task<Lightlog> UpdateLightStatus(Lightlog light);
+		Task<Lightlog> DeleteLightLog(int logId);
 
     }
 }

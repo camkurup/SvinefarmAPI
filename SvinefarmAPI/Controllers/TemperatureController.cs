@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SvinefarmAPI.Interfaces;
 using SvinefarmAPI.Repository;
 
 namespace SvinefarmAPI.Controllers
@@ -7,12 +8,24 @@ namespace SvinefarmAPI.Controllers
     [Route("[controller]")]
     public class TemperatureController : Controller
     {
+        private readonly ITemperature _temperature;
+
+        public TemperatureController(ITemperature temperature)
+        {
+            _temperature = temperature;
+        }
         TemperatureRepository temperatureRepository = new TemperatureRepository();
 
         [HttpGet("GetCurrentTemperature")]
         public IActionResult GetCurrentTemperature() 
         {
             return Ok(temperatureRepository.GetCurrentTemperature());
+        }
+
+        [HttpGet("GetLight")]
+        public IActionResult GetLight()
+        {
+            return Ok(temperatureRepository.GetLight());
         }
     }
 }

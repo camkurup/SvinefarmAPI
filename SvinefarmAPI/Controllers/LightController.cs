@@ -9,11 +9,11 @@ namespace SvinefarmAPI.Controllers
     [Route("[controller]")]
     public class LightController : Controller
     {
-        private readonly ILight _lightRepository;
+        ILight _light;
 
-        public LightController(ILight lightRepository)
+        public LightController(ILight light)
         {
-            _lightRepository= lightRepository;
+            _light= light;
         }
 		[HttpPost]
 		public async Task<IActionResult> CreateLightLog([FromBody] Lightlog logEntry)
@@ -21,7 +21,7 @@ namespace SvinefarmAPI.Controllers
 			try
 			{
                 //Change variable name
-				Lightlog createdAuthor = await _lightRepository.CreateLightLog(logEntry);
+				Lightlog createdAuthor = await _light.CreateLightLog(logEntry);
 				if (createdAuthor is not null)
 				{
 					return Ok(createdAuthor);
@@ -42,7 +42,7 @@ namespace SvinefarmAPI.Controllers
         {
             try
             {
-                Lightlog deletedLightLog = await _lightRepository.DeleteLightLog(logId);
+                Lightlog deletedLightLog = await _light.DeleteLightLog(logId);
                 if (deletedLightLog is not null)
                 {
                     return Ok(deletedLightLog);
@@ -63,7 +63,7 @@ namespace SvinefarmAPI.Controllers
         {
             try
             {
-                List<Lightlog> lightLogList = await _lightRepository.GetAllLightLogs();
+                List<Lightlog> lightLogList = await _light.GetAllLightLogs();
                 if (lightLogList.Count > 0)
                 {
                     return Ok(lightLogList);
@@ -83,7 +83,7 @@ namespace SvinefarmAPI.Controllers
 		{
 			try
 			{
-				Lightlog levelOfLight = await _lightRepository.GetLevelOfLight();
+				Lightlog levelOfLight = await _light.GetLevelOfLight();
 				if (levelOfLight is not null)
 				{
 					return Ok(levelOfLight);
@@ -103,7 +103,7 @@ namespace SvinefarmAPI.Controllers
   //      {
   //          try
   //          {
-  //              List<LightModel> lightLogs= await _lightRepository.GetLightLogByTime(startTime,endTime);
+  //              List<LightModel> lightLogs= await _light.GetLightLogByTime(startTime,endTime);
   //              if (lightLogs is null)
   //              {
   //                  return NotFound();
@@ -131,7 +131,7 @@ namespace SvinefarmAPI.Controllers
             }
             try
             {
-                Lightlog updatedLightLog = await _lightRepository.UpdateLightLog(lightLog, logId);
+                Lightlog updatedLightLog = await _light.UpdateLightLog(lightLog, logId);
                 if (updatedLightLog is not null)
                 {
                     return Ok(updatedLightLog);
@@ -155,7 +155,7 @@ namespace SvinefarmAPI.Controllers
             }
             try
             {
-                Lightlog updatedLightLog = await _lightRepository.UpdateLightStatus(logEntry);
+                Lightlog updatedLightLog = await _light.UpdateLightStatus(logEntry);
                 if (updatedLightLog is not null)
                 {
                     return Ok(updatedLightLog);

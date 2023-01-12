@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SvinefarmAPI.Interfaces;
+using SvinefarmAPI.Model;
 using SvinefarmAPI.Repository;
 
 namespace SvinefarmAPI.Controllers
@@ -16,16 +17,11 @@ namespace SvinefarmAPI.Controllers
         }
         TemperatureRepository temperatureRepository = new TemperatureRepository();
 
-        [HttpGet("GetCurrentTemperature")]
-        public IActionResult GetCurrentTemperature() 
-        {
-            return Ok(temperatureRepository.GetCurrentTemperature());
-        }
+        //[HttpGet("GetCurrentTemperature")]
+        //public IActionResult GetCurrentTemperature() 
+        //{
+        //    return Ok(temperatureRepository.GetCurrentTemperature());
+        //}
 
-        [HttpGet("GetLight")]
-        public IActionResult GetLight()
-        {
-            return Ok(temperatureRepository.GetLight());
-        }
     }
 }

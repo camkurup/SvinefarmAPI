@@ -2,7 +2,7 @@
 {
     public interface ITemperature
     {
-        int GetCurrentTemperature();
+        //int GetCurrentTemperature();
 
     }
 }

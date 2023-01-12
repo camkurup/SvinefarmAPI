@@ -7,7 +7,7 @@ namespace SvinefarmAPI.Repository
 {
     public class LightRepository : ILight
 	{
-		ThePigFarmContext _thePigFarmContext;
+		private readonly ThePigFarmContext _thePigFarmContext;
 
         public LightRepository(ThePigFarmContext thePigFarmContext)
         {

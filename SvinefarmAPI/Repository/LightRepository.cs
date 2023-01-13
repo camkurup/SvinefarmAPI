@@ -14,6 +14,8 @@ namespace SvinefarmAPI.Repository
 			_thePigFarmContext= thePigFarmContext;
         }
 
+		//For this to work we need to kreate a primary key in the DB -
+		//that should actually have been done no matter what
 		public async Task<Lightlog> CreateLightLog(Lightlog light)
 		{
             _thePigFarmContext.Lightlogs.Add(light);
@@ -21,6 +23,7 @@ namespace SvinefarmAPI.Repository
 			return light;
 		}
 
+		//Returns a 404 - research why
 		public async Task<Lightlog> DeleteLightLog(int logId)
 		{
             Lightlog foundLightModel = await _thePigFarmContext.Lightlogs.FirstOrDefaultAsync(x => x.Id == logId);
@@ -32,12 +35,14 @@ namespace SvinefarmAPI.Repository
 			return foundLightModel;
 		}
 
+		//Works PERFECT
 		public async Task<List<Lightlog>> GetAllLightLogs()
 		{
 			return await _thePigFarmContext.Lightlogs.ToListAsync();
 		}
 
-		public async Task<Lightlog> GetLevelOfLight()
+        //Works PERFECT
+        public async Task<Lightlog> GetLevelOfLight()
 		{
 			return await _thePigFarmContext.Lightlogs.OrderByDescending(x => x.Timeoflog).FirstAsync();
 			
@@ -53,6 +58,7 @@ namespace SvinefarmAPI.Repository
 			throw new NotImplementedException();
 		}
 
+		//Does not brake, and it does return Something, but not what was intended
 		public async Task<Lightlog> UpdateLightLog(Lightlog logEntry, int logId)
 		{
             Lightlog updateLog = await _thePigFarmContext.Lightlogs.FirstOrDefaultAsync(x => x.Id == logId);
@@ -65,6 +71,7 @@ namespace SvinefarmAPI.Repository
 			return updateLog;
 		}
 
+		//gives response  status 400
 		public async Task<Lightlog> UpdateLightStatus(Lightlog light)
 		{
             Lightlog newestLog = await _thePigFarmContext.Lightlogs.OrderByDescending(x => x.Timeoflog).FirstAsync();

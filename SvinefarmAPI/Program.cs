@@ -21,7 +21,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ILight, LightRepository>();
 builder.Services.AddDbContext<ThePigFarmContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("¨ThePigFarmContext")));
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("InitialRules",
+                builder =>
+                {
+                    builder.AllowAnyOrigin() // kan skrive port i stedet for
+                           .AllowAnyHeader()
+                           .AllowAnyMethod(); // kun get eller put mm.
+                });
+});
 
 var app = builder.Build();
 
@@ -32,6 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("InitialRules");
 
 app.UseHttpsRedirection();
 

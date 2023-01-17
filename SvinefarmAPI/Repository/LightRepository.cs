@@ -21,7 +21,7 @@ namespace SvinefarmAPI.Repository
 			Lightlog newLightLog = new()
 			{
 				Leveloflight = light.Leveloflight,
-				Timeoflog = light.Timeoflog,
+				Timeoflog = DateTime.UtcNow,
 				Lightlevelinstable = light.Lightlevelinstable
 			};
 			_thePigFarmContext.Lightlogs.Add(newLightLog);

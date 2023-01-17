@@ -20,7 +20,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ILight, LightRepository>();
 builder.Services.AddDbContext<ThePigFarmContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("¨ThePigFarmContext")));
+            options.UseNpgsql(builder.Configuration.GetConnectionString("¨ThePigFarm")));
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
 var app = builder.Build();

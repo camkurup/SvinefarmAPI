@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SvinefarmAPI", "SvinefarmAPI\SvinefarmAPI.csproj", "{97B8F633-43CA-4183-8C80-71878BF02D53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvinefarmenTests", "SvinefarmenTests\SvinefarmenTests.csproj", "{F695602B-EE0D-411F-A630-AD026E0A15FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvinefarAPI.Tests", "SvinefarAPI.Tests\SvinefarAPI.Tests.csproj", "{EFCE6D24-9626-46EF-BBF7-DB96F51E7B60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{97B8F633-43CA-4183-8C80-71878BF02D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97B8F633-43CA-4183-8C80-71878BF02D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97B8F633-43CA-4183-8C80-71878BF02D53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F695602B-EE0D-411F-A630-AD026E0A15FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F695602B-EE0D-411F-A630-AD026E0A15FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F695602B-EE0D-411F-A630-AD026E0A15FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F695602B-EE0D-411F-A630-AD026E0A15FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFCE6D24-9626-46EF-BBF7-DB96F51E7B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFCE6D24-9626-46EF-BBF7-DB96F51E7B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFCE6D24-9626-46EF-BBF7-DB96F51E7B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFCE6D24-9626-46EF-BBF7-DB96F51E7B60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

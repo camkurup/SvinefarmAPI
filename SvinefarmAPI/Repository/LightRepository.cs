@@ -16,11 +16,17 @@ namespace SvinefarmAPI.Repository
 
 		//For this to work we need to kreate a primary key in the DB -
 		//that should actually have been done no matter what
-		public async Task<Lightlog> CreateLightLog(Lightlog light)
+		public async Task<Lightlog> CreateLightLog(LightLogRequest light)
 		{
-            _thePigFarmContext.Lightlogs.Add(light);
+			Lightlog newLightLog = new()
+			{
+				Leveloflight = light.Leveloflight,
+				Timeoflog = light.Timeoflog,
+				Lightlevelinstable = light.Lightlevelinstable
+			};
+			_thePigFarmContext.Lightlogs.Add(newLightLog);
 			await _thePigFarmContext.SaveChangesAsync();
-			return light;
+			return newLightLog;
 		}
 
 		//Returns a 404 - research why

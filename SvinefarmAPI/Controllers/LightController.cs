@@ -16,7 +16,7 @@ namespace SvinefarmAPI.Controllers
             _light= light;
         }
 		[HttpPost]
-		public async Task<IActionResult> CreateLightLog([FromBody] Lightlog logEntry)
+		public async Task<IActionResult> CreateLightLog([FromBody] LightLogRequest logEntry)
 		{
 			try
 			{

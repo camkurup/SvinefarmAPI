@@ -4,7 +4,7 @@ namespace SvinefarmAPI.Interfaces
 {
     public interface ILight
 	{
-		Task<Lightlog> CreateLightLog(Lightlog light);
+		Task<Lightlog> CreateLightLog(LightLogRequest light);
 		Task<Lightlog> GetLevelOfLight();
 		Task<List<Lightlog>> GetAllLightLogs();
 		Task<List<Lightlog>> GetLightLogByTime(DateTime startTime, DateTime endTime);

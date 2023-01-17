@@ -29,7 +29,6 @@ public partial class ThePigFarmContext : DbContext
         modelBuilder.Entity<Lightlog>(entity =>
         {
             entity
-                .HasNoKey()
                 .ToTable("lightlog");
 
             entity.Property(e => e.Id)

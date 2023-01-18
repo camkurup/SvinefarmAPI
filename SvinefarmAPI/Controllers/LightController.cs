@@ -21,10 +21,10 @@ namespace SvinefarmAPI.Controllers
 			try
 			{
                 //Change variable name
-				Lightlog createdAuthor = await _light.CreateLightLog(logEntry);
-				if (createdAuthor is not null)
+				Lightlog createdLightLog = await _light.CreateLightLog(logEntry);
+				if (createdLightLog is not null)
 				{
-					return Ok(createdAuthor);
+					return Ok(createdLightLog);
 				}
 				return NotFound();
 

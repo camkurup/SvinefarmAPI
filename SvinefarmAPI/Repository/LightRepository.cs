@@ -54,15 +54,8 @@ namespace SvinefarmAPI.Repository
 			
 		}
 
-		public async Task<List<Lightlog>> GetLightLogByTime(DateTime startTime, DateTime endTime)
-		{
-			return await _thePigFarmContext.Lightlogs.Where(x => x.Timeoflog > startTime && x.Timeoflog < endTime).ToListAsync();
-		}
+		
 
-		public Task<Lightlog> SetLevelOfLight(Lightlog light)
-		{
-			throw new NotImplementedException();
-		}
 
 		//Does not brake, and it does return Something, but not what was intended
 		public async Task<Lightlog> UpdateLightLog(Lightlog logEntry, int logId)

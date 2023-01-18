@@ -14,7 +14,7 @@ namespace SvinefarmAPI.UnitTests.Repositories
 		public LightRepositoryTests()
 		{
 			_options = new DbContextOptionsBuilder<ThePigFarmContext>()
-				.UseInMemoryDatabase(databaseName: "ThePigFarmProjectLight")
+				.UseInMemoryDatabase(databaseName: "ThePigFarm")
 				.Options;
 
 			_context = new(_options);
@@ -37,12 +37,9 @@ namespace SvinefarmAPI.UnitTests.Repositories
 				Lightlevelinstable = 1
 			};
 
-
-
-
 			//Act
-
 			var result = await _repository.CreateLightLog(newLightLog);
+				
 			//Assert
 			Assert.NotNull(result);
 			Assert.IsType<Lightlog>(result);
